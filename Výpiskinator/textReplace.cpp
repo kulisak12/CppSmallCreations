@@ -7,6 +7,6 @@ void textReplace(string* source, string toReplace, string replaceWith) {
 	element = source->find(toReplace);
 	while (element != string::npos) {
 		source->replace(element, toReplace.length(), replaceWith);
-		element = source->find(toReplace, element + 1);
+		element = source->find(toReplace, element + replaceWith.length());
 	}
 }

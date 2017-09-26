@@ -1,22 +1,38 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "entityToUtf8.cpp"
 #include "textReplace.cpp"
-#include "findBulletList.cpp"
 #include "createHeading.cpp"
 using namespace std;
 
-string* code = new string;
+class itemList {
+	public:
+		vector<int> itemLines;
+		int items = 0;
+		int lastLine, indent, firstIndex;
+		bool terminated = 0;
+};
+
+class listGroup {
+	public:
+		vector<itemList> itemListsSet;
+		
+};
+class bulletLists: public listGroup {
+	
+};
+class numberLists: public listGroup {
+	
+};
+class letterLists: public listGroup {
+	
+};
 
 int main() {
 	string entityToUtf8(int entityCode);
 	void textReplace(string* source, string toReplace, string replaceWith);
-	void createHeading(string toReplace, string replaceWith);
-	int findBulletList(int hyphen);
-	
-	string* line = new string;
-	int entity, entityStart, entityEnd;
-	int lineBreak, listItem, paragraphEnd, indentLevel;
+	void createHeading(string* source, string toReplace, string replaceWith);
 	
 	ifstream sourceFile("note.html", ios::in);
 	if (!sourceFile.is_open()) {
@@ -26,91 +42,59 @@ int main() {
 	ofstream outputFile("output.html", ios::out | ios::trunc);
 	if (!outputFile.is_open()) {
 		cerr << "File doesn't exist\n";
+		sourceFile.close();
 		return 1;
 	}
 	
-	*code = "";
-	// replace numerical HTML entities
-	while (getline(sourceFile, *line)) {
-		entityStart = line->find("&#");
+	string* thisLine = new string;
+	vector<string> code(10);
+	int line = 0;
+	int entity, entityStart, entityEnd;
+	// extract code from file and store it line by line
+	while (getline(sourceFile, *thisLine)) {
+		// replace HTML entities
+		entityStart = thisLine->find("&#");
 		while (entityStart != string::npos) {
-			entityEnd = line->find(';', entityStart);
+			entityEnd = thisLine->find(';', entityStart);
 			// extract the number from the entity syntax
-			entity = stoi(line->substr(entityStart + 2, entityEnd - entityStart - 2));
-			line->replace(entityStart, entityEnd - entityStart + 1, entityToUtf8(entity));
-			entityStart = line->find("&#", entityStart);
-		}
-		// put together the code
-		*code += *line;
-	}
-	
-	// add line breaks
-	textReplace(code, "<br>", "<br>\n");
-	
-	// change arrows
-	textReplace(code, "-&gt;", "&rarr;");
-	
-	// replace font-size with h2 and h3
-	createHeading("<span style=\"font-size:16px\">", "<h2>");
-	createHeading("<span style=\"font-size:13px\">", "<h3>");
-	
-	// delete all color changing spans
-	textReplace(code, "<span style=\"color:#000000\">", "");
-	textReplace(code, "</span>", "");
-	
-	// change header
-	code->replace(0, code->find("<p>") + 3,
-	"<!--conversion by kulisak-->\n<!DOCTYPE html>\n<head><title>Note</title></head><body>\n<h1>");
-	code->erase(code->find("<span style=\"font-size:22px\">"), 29);
-	code->replace(code->find("</p>"), 4, "</h1>");
-	
-	// convert hyphen lists to bulleted unordered lists
-	lineBreak = findBulletList(0); // find the first list item
-	// for every list block
-	while (lineBreak != string::npos) {
-		listItem = code->find_first_not_of(9, lineBreak + 1);
-		// mark the indentation level for future reference
-		indentLevel = listItem - lineBreak;
-		// replace tabs with list opening tags
-		code->replace(lineBreak - 4, indentLevel + 4, "\n<ul><li>");
-		// list should be ended with a p closing tag
-		paragraphEnd = code->find("</p>", listItem + 1);
-		if (paragraphEnd == string::npos) {
-			paragraphEnd = code->length();
+			entity = stoi(thisLine->substr(entityStart + 2, entityEnd - entityStart - 2));
+			thisLine->replace(entityStart, entityEnd - entityStart + 1, entityToUtf8(entity));
+			entityStart = thisLine->find("&#", entityStart);
 		}
 		
-		// handle the rest of items inside of the list
-		lineBreak = findBulletList(listItem);
-		while (lineBreak < paragraphEnd && lineBreak != string::npos) {
-			listItem = code->find_first_not_of(9, lineBreak + 1);
-			// if the indentation lowered, marking the end of an inner list
-			if (listItem - lineBreak < indentLevel) {
-				// no p closing tag
-				paragraphEnd = code->find("<br>", listItem);
-				code->erase(paragraphEnd, 4);
-				break;
-			}
-			code->replace(lineBreak + 1, indentLevel - 1, "<li>");
-			code->replace(lineBreak - 4, 4, "</li>");
-			paragraphEnd = code->find("</p>", listItem + 1);
-			if (paragraphEnd == string::npos) {
-				paragraphEnd = code->length();
-			}
-			lineBreak = findBulletList(listItem);
+		// change arrows
+		textReplace(thisLine, "-&gt;", "&rarr;");
+		// replace font-size with h2 and h3
+		createHeading(thisLine, "<span style=\"font-size:16px\">", "<h2>");
+		createHeading(thisLine, "<span style=\"font-size:13px\">", "<h3>");
+		// delete all color changing spans
+		textReplace(thisLine, "<span style=\"color:#000000\">", "");
+		textReplace(thisLine, "</span>", "");
+		
+		if (*thisLine != "") {
+			code[line] = *thisLine;
+			line++;
+			code.resize(line + 1); // make space for the next line
 		}
-		// end the list block
-		code->insert(paragraphEnd, "</li></ul>");
-		if (lineBreak != string::npos) {
-			lineBreak += 10; // inserted some text, position changed
-		}
+		
 	}
 	
-	outputFile << *code;
+	
+	// change header
+	code[0].replace(0, code[0].find("<p>") + 3,
+	"<!--conversion by kulisak-->\n<!DOCTYPE html>\n<html><head><title>Note</title></head><body>\n<h1>");
+	code[0].erase(code[0].find("<span style=\"font-size:22px\">"), 29);
+	code[0].replace(code[0].find("</p>"), 4, "</h1>");
+	
+	// create output file
+	for (int i = 0; i < line - 1; i++) {
+		outputFile << code[i] << endl;
+	}
+	outputFile << code[line - 1] << "</html>";
+	
+	delete thisLine;
+	thisLine = NULL;
 	sourceFile.close();
 	outputFile.close();
-	delete line;
-	line = NULL;
-	delete code;
-	code = NULL;
 	return 0;
 }
