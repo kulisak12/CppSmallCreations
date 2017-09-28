@@ -1,5 +1,3 @@
-#include <iostream>
-#include <vector>
 #include "itemList.h"
 using namespace std;
 

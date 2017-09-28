@@ -1,9 +1,15 @@
-#include <string>
-#include <vector>
 #include "itemList.h"
 using namespace std;
 
 extern vector<string> code;
+
+// lighter version of power function
+int power(int base, int exponent) {
+	if (exponent == 0) {
+		return 1;
+	}
+	return base * power(base, exponent - 1);
+}
 
 void writeListData(vector<itemList> &setOfLists, string listType, string* lineStart, int indent) {
 	void textReplace(string* source, string toReplace, string replaceWith);
@@ -31,8 +37,17 @@ void writeListData(vector<itemList> &setOfLists, string listType, string* lineSt
 		currentList->indentLevel = indent;
 		currentList->terminated = 0;
 		currentList->itemLines.push_back(line);
-		if (listType == "1") {
+		// set list start attribute
+		if (listSign == ")") {
 			currentList->firstIndex = lineStart->substr(space + 1, lineStart->length() - space - 3);
+		}
+		if (listType == "a") {
+			// convert letters to numerical representation
+			int startNumber = 0;
+			for (int i = 0; i < currentList->firstIndex.length(); i++) {
+				startNumber += power(26, currentList->firstIndex.length() - i - 1) * ((int) currentList->firstIndex[i] - 96);
+			}
+			currentList->firstIndex = to_string(startNumber);
 		}
 	} else {
 		currentList = setOfLists.begin() + current;
@@ -41,10 +56,6 @@ void writeListData(vector<itemList> &setOfLists, string listType, string* lineSt
 	}
 	
 	// remove list sign and space after it
-	if (lineStart->substr(lineStart->length() - 1) == " ") {
-		lineStart->erase(space + 1);
-	} else {
-		lineStart->erase(space + 1, lineStart->length() - space - 2);
-	}
+	lineStart->erase(space + 1);
 	code[line].replace(0, code[line].find(listSign) + 2, *lineStart);
 }

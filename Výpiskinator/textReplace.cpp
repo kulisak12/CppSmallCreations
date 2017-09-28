@@ -1,4 +1,3 @@
-#include <string>
 using namespace std;
 
 // replace all occurences of string by a different one

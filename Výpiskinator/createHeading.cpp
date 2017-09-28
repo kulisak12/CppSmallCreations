@@ -1,4 +1,3 @@
-#include <string>
 using namespace std;
 
 void createHeading(string* source, string toReplace, string replaceWith) {
