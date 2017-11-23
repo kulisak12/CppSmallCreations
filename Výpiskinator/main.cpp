@@ -7,6 +7,7 @@
 #include "searchForList.cpp"
 #include "writeListData.cpp"
 #include "createLists.cpp"
+#include "setTextProperty.cpp"
 #include "itemList.h"
 using namespace std;
 
@@ -19,6 +20,7 @@ int main() {
 	void createHeading(string* source, string toReplace, string replaceWith);
 	void writeListData(vector<itemList> &setOfLists, string listType, string* lineStart, int indent);
 	void createLists(vector<itemList> &setOfLists, string listType);
+	void setTextProperty(string* source, string typeSign);
 	
 	ifstream sourceFile("note.html", ios::in);
 	if (!sourceFile.is_open()) {
@@ -59,6 +61,14 @@ int main() {
 		// delete all color changing spans
 		textReplace(thisLine, "<span style=\"color:#000000\">", "");
 		textReplace(thisLine, "</span>", "");
+		// create subscripted and superscripted text
+		try {
+			setTextProperty(thisLine, "_");
+			setTextProperty(thisLine, "^");
+		} catch (...) {
+			cerr << "Found opening curly brace but no closing one\n";
+			cin.get();
+		}
 		
 		code.push_back(*thisLine);
 		// mark the position of a list
@@ -88,6 +98,8 @@ int main() {
 				} else {
 					writeListData(letterLists, "a", thisLine, indent);
 				}
+			} else {
+				textReplace(&code[line], "\t", "&#8193;");
 			}
 			
 			// terminate lists of higher indent
@@ -104,12 +116,8 @@ int main() {
 		}
 	}
 	
-	
 	// change header
-	code[0].replace(0, code[0].find("<p>") + 3,
-	"<!--conversion by kulisak-->\n<!DOCTYPE html>\n<html><head><title>Note</title></head><body>\n<h1>");
-	code[0].erase(code[0].find("<span style=\"font-size:22px\">"), 29);
-	code[0].replace(code[0].find("</p>"), 4, "</h1>");
+	code[0] = "<!--conversion by kulisak-->\n<!DOCTYPE html>\n";
 	
 	// create lists
 	createLists(bulletLists, "-");
