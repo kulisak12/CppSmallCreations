@@ -57,7 +57,7 @@ int main() {
 			cout << openingError << outputFileName << " for writing\n";
 			throw 302;
 		}
-		*finalOutput = "summon falling_block ~ ~0.5 ~ {Time:1,Block:\"activator_rail\",Passengers:[";
+		*finalOutput = "summon falling_block ~ ~0.5 ~ {Time:1,BlockState:{Name:\"activator_rail\",Properties:{powered:\"true\"}},Passengers:[";
 
 		while (*instructions != "#EOF") {
 			// load the command
@@ -181,7 +181,7 @@ int main() {
 
 			*instructions = readLine();
 		}
-		*finalOutput += "{id:\"commandblock_minecart\",Command:\"/setblock ~ ~1 ~ command_block{Command:\\\"/fill ~ ~ ~ ~ ~-1 ~ air\\\",auto:1b}\"},{id:\"commandblock_minecart\",Command:\"/kill @e[type=commandblock_minecart,r=1]\"}]}";
+		*finalOutput += "{id:\"commandblock_minecart\",Command:\"/setblock ~ ~2 ~ command_block{Command:\\\"/fill ~ ~ ~ ~ ~-2 ~ air\\\",auto:1b}\"},{id:\"commandblock_minecart\",Command:\"/kill @e[type=commandblock_minecart,distance=..1]\"}]}";
 		// cout << *finalOutput;
 		outputFile << *finalOutput;
 	}

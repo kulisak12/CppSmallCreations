@@ -1,13 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "entityToUtf8.cpp"
-#include "textReplace.cpp"
 #include "createHeading.cpp"
-#include "searchForList.cpp"
-#include "writeListData.cpp"
 #include "createLists.cpp"
+#include "entityToUtf8.cpp"
+#include "searchForList.cpp"
 #include "setTextProperty.cpp"
+#include "textReplace.cpp"
+#include "writeListData.cpp"
 #include "itemList.h"
 using namespace std;
 
@@ -21,26 +21,28 @@ int main() {
 	void writeListData(vector<itemList> &setOfLists, string listType, string* lineStart, int indent);
 	void createLists(vector<itemList> &setOfLists, string listType);
 	void setTextProperty(string* source, string typeSign);
-	
+
 	ifstream sourceFile("note.html", ios::in);
 	if (!sourceFile.is_open()) {
 		cerr << "Couldn't open source file\n";
+		cin.get();
 		return 1;
 	}
 	ofstream outputFile("output.html", ios::out | ios::trunc);
 	if (!outputFile.is_open()) {
 		cerr << "Couldn't open output file\n";
 		sourceFile.close();
+		cin.get();
 		return 1;
 	}
-	
+
 	string* thisLine = new string;
 	int entity, entityStart, entityEnd;
 	int indent, space;
 	vector<itemList> bulletLists;
 	vector<itemList> numberLists;
 	vector<itemList> letterLists;
-	
+
 	// extract code from file and store it line by line
 	while (getline(sourceFile, *thisLine)) {
 		// replace HTML entities
@@ -52,7 +54,7 @@ int main() {
 			thisLine->replace(entityStart, entityEnd - entityStart + 1, entityToUtf8(entity));
 			entityStart = thisLine->find("&#", entityStart);
 		}
-		
+
 		// change arrows
 		textReplace(thisLine, "-&gt;", "&rarr;");
 		// replace font-size with h2 and h3
@@ -69,7 +71,7 @@ int main() {
 			cerr << "Found opening curly brace but no closing one\n";
 			cin.get();
 		}
-		
+
 		code.push_back(*thisLine);
 		// mark the position of a list
 		space = thisLine->find(" ");
@@ -86,7 +88,7 @@ int main() {
 		textReplace(thisLine, "</i>", "");
 		indent = thisLine->find_first_not_of("\t");
 		thisLine->erase(0, indent);
-		
+
 		// check if line marks a list item
 		if (*thisLine != "") {
 			if (*thisLine == "-") {
@@ -101,7 +103,7 @@ int main() {
 			} else {
 				textReplace(&code[line], "\t", "&#8193;");
 			}
-			
+
 			// terminate lists of higher indent
 			searchForList(bulletLists, indent);
 			searchForList(numberLists, indent);
@@ -115,15 +117,15 @@ int main() {
 			searchForList(letterLists, -1);
 		}
 	}
-	
+
 	// change header
 	code[0] = "<!--conversion by kulisak-->\n<!DOCTYPE html>\n";
-	
+
 	// create lists
 	createLists(bulletLists, "-");
 	createLists(numberLists, "1");
 	createLists(letterLists, "a");
-	
+
 	// create output file
 	for (int i = 0; i < line - 1; i++) {
 		outputFile << code[i] << endl;

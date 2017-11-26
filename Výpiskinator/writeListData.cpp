@@ -18,11 +18,11 @@ void writeListData(vector<itemList> &setOfLists, string listType, string* lineSt
 	int space = -1;
 	int firstIndex;
 	string listSign = (listType == "-") ? "-" : ")";
-	
+
 	// remove tabs and dash in the code
 	*lineStart = code[line].substr(0, code[line].find(listSign) + 2);
 	textReplace(lineStart, "\t", "");
-	
+
 	if (listSign == ")") {
 		space = lineStart->find_last_not_of("-)0123456789abcdefghijklmnopqrstuvwxyz", lineStart->length() - 2);
 		if (space == string::npos) {
@@ -52,9 +52,9 @@ void writeListData(vector<itemList> &setOfLists, string listType, string* lineSt
 	} else {
 		currentList = setOfLists.begin() + current;
 		currentList->itemLines.push_back(line);
-	
+
 	}
-	
+
 	// remove list sign and space after it
 	lineStart->erase(space + 1);
 	code[line].replace(0, code[line].find(listSign) + 2, *lineStart);

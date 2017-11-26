@@ -13,7 +13,7 @@ void createHeading(string* source, string toReplace, string replaceWith) {
 		}
 		source->replace(source->length() - 4, 4, "</" + replaceWith.substr(1) + "<p>");
 	}
-	
+
 	// remove other font size changes
 	heading = source->find(toReplace);
 	while (heading != string::npos) {

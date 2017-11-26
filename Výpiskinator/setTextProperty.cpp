@@ -1,3 +1,4 @@
+#include "itemList.h"
 using namespace std;
 
 void setTextProperty(string* source, string typeSign) {
@@ -17,7 +18,7 @@ void setTextProperty(string* source, string typeSign) {
 			}
 			source->erase(textEnd, 1);
 		}
-		
+
 		// add the closing tag
 		source->insert(textEnd, "</" + textPropertyTag + ">");
 		// look for another instance

@@ -3,7 +3,6 @@ using namespace std;
 
 extern int line;
 
-
 int searchForList(vector<itemList> &lists, int indent) {
 	int prospectedList = lists.size() - 1;
 	if (prospectedList >= 0) {
