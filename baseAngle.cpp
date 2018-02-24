@@ -1,9 +1,12 @@
+// A calculator which converts an angle to its base value
+// Basically a modulo calculator
 #include <iostream>
 
 int main() {
 	std::string input, angle;
 	float angleValue, fractionBase = 1, fullAngleValue;
 	size_t slash;
+	
 	std::cin >> input;
 	// split the line into angle and fullAngle
 	angle = input.substr(0, input.find("%"));
@@ -28,12 +31,15 @@ int main() {
 	}
 	
 	if (fractionBase == 1) {
-		std::cout << angleValue;
+		std::cout << angleValue << std::endl;
 	} else {
-		std::cout << angleValue << "/" << fractionBase << "=" << angleValue / fractionBase;
+		std::cout << angleValue << "/" << fractionBase << "=" << angleValue / fractionBase << std::endl;
 	}
 	
-	std::cin.get();
+	// keep the console open
+    std::cout << "Press enter to exit";
+	std::cin.clear();
+	std::cin.sync();
 	std::cin.get();
 	return 0;
 }

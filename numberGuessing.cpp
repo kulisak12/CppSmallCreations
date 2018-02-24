@@ -1,7 +1,7 @@
+// A game to guess a number between 1 and 100
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
-using namespace std;
 
 // game where the computer generates a number and a human tries to guess it
 void humanGuess() {
@@ -10,40 +10,40 @@ void humanGuess() {
     srand(time(NULL)); // set the seed for rand()
     rand(); // the first number generated isn't random
     number = rand() % 101;
-    cout << "Take a guess, young boy\n";
-    cin >> guess;
-
+    std::cout << "Take a guess, young boy\n";
+    std::cin >> guess;
+	
     // check the correctness of the guess
     while (number != guess) {
         if (guess < number) {
-            cout << "Too low\n";
+            std::cout << "Too low\n";
         } else {
-            cout << "Too high\n";
+            std::cout << "Too high\n";
         }
-        cin >> guess;
+        std::cin >> guess;
         tries++;
     }
-    cout << "You got it! It took you " << tries << " tries." << endl;
+    std::cout << "You got it! It took you " << tries << " tries." << std::endl;
 }
 
 
 // game where a human thinks of a number and the computer tries to guess it
 
 // human answer processing
-short humanAnswer(int f_guess, int *p_minPossible, int *p_maxPossible) {
-    string humanAnswer;
-    cin >> humanAnswer;
+short humanAnswer(int guess, int *minPossible, int *maxPossible) {
+    std::string humanAnswer;
+    std::cin >> humanAnswer;
     if (humanAnswer == "low") {
-        *p_minPossible = f_guess + 1; // update the minimum for the next guess
+        *minPossible = guess + 1; // update the minimum for the next guess
         return 0;
     } else if (humanAnswer == "high") {
-        *p_maxPossible = f_guess - 1; // update the maximum for the next guess
+        *maxPossible = guess - 1; // update the maximum for the next guess
         return 0;
     } else if (humanAnswer == "correct") {
-        cout << "Hooray!\n";
+        std::cout << "Hooray!\n";
         return 1;
     } else { // invalid answer, prompt a new answer
-        cout << "Invalid answer. Please say low, high or correct.\n";
+        std::cout << "Invalid answer. Please say low, high or correct.\n";
         return -1;
     }
 }
@@ -54,12 +54,12 @@ void computerGuess() {
     int maxPossible = 100;
     int guess;
     short isCorrect;
-
+	
     do {
         guess = (minPossible + maxPossible) / 2; // guess the middle value
-        cout << "I guess " << guess << ".\nIs it low, high or correct?\n";
+        std::cout << "I guess " << guess << ".\nIs it low, high or correct?\n";
         isCorrect = humanAnswer(guess, &minPossible, &maxPossible);
-
+		
         if (isCorrect == -1) { // process a new answer if it was invalid
             isCorrect = humanAnswer(guess, &minPossible, &maxPossible);
         }
@@ -70,13 +70,18 @@ int main()
 {
     // select the game type and run it
     bool humanGuesses;
-    cout << "Who guesses, computer (0) or human (1)?\n";
-    cin >> humanGuesses;
+    std::cout << "Who guesses, computer (0) or human (1)?\n";
+    std::cin >> humanGuesses;
     if (humanGuesses == 0) {
         computerGuess();
     } else {
         humanGuess();
     }
-
+	
+	// keep the console open
+    std::cout << "Press enter to exit";
+	std::cin.clear();
+	std::cin.sync();
+	std::cin.get();
     return 0;
 }
