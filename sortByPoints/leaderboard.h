@@ -5,6 +5,7 @@ public:
 	leaderboard(int peopleCount);
 	~leaderboard();
 
+	void getPoints();
 	void printLeaderboard();
 
 private:
@@ -12,6 +13,5 @@ private:
 	int* points;
 	int* place;
 
-	void getPoints();
 	void setPlace();
 };

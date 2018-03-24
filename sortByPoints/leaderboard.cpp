@@ -10,13 +10,22 @@ leaderboard::leaderboard(int peopleCount)
 {
 	points = new int[peopleCount];
 	place = new int[peopleCount];
-	getPoints();
 }
 leaderboard::~leaderboard() {
 	delete[] points;
 	points = NULL;
 	delete[] place;
 	place = NULL;
+}
+
+// get input
+void leaderboard::getPoints() {
+	std::cout << "Put in points for " << peopleCount << " people.\n";
+	for (int i = 0; i < peopleCount; i++) {
+		std::cin >> points[i];
+		place[i] = 1; // 1 = first
+	}
+	std::cin.ignore(32767, '\n');
 }
 
 void leaderboard::printLeaderboard() {
@@ -29,16 +38,6 @@ void leaderboard::printLeaderboard() {
 			}
 		}
 	}
-}
-
-// get input
-void leaderboard::getPoints() {
-	std::cout << "Put in points for " << peopleCount << " people.\n";
-	for (int i = 0; i < peopleCount; i++) {
-		std::cin >> points[i];
-		place[i] = 1; // 1 = first
-	}
-	std::cin.ignore(32767, '\n');
 }
 
 /* for every combination of two people, if the second one has less
