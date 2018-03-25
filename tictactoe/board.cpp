@@ -24,11 +24,11 @@ bool tictactoe::playAtField(char sign, int x, int y) {
 	// if the field is free
 	if (fields[x][y] == '-') {
 		fields[x][y] = sign;
-		return 0; // success
+		return 1; // success
 	}
 	// if the field is taken
 	else {
-		return 1; // invokes a new input
+		return 0; // invokes a new input
 	}
 }
 
@@ -71,7 +71,7 @@ void tictactoe::randomMove(char sign) {
 	int fieldPosition;
 	do {
 		fieldPosition = rand() % 9;
-	} while (playAtField(sign, fieldPosition / 3, fieldPosition % 3));
+	} while (!playAtField(sign, fieldPosition / 3, fieldPosition % 3));
 }
 
 // calculate how many signs are there in a row
@@ -131,20 +131,20 @@ int tictactoe::signsInUpwardsDiagonal(char sign) {
 }
 
 bool tictactoe::fillStreak(int streakPosition, int i) {
-	bool isUnavailable;
+	bool isAvailable;
 	switch (streakPosition / 3) {
 	case 1: // row
-		isUnavailable = playAtField('o', streakPosition % 3, i);
+		isAvailable = playAtField('o', streakPosition % 3, i);
 		break;
 	case 2: // collumn
-		isUnavailable = playAtField('o', i, streakPosition % 3);
+		isAvailable = playAtField('o', i, streakPosition % 3);
 		break;
 	case 3: // downwards diagonal
-		isUnavailable = playAtField('o', i, i);
+		isAvailable = playAtField('o', i, i);
 		break;
 	case 4: // upwards diagonal
-		isUnavailable = playAtField('o', i, 2 - i);
+		isAvailable = playAtField('o', i, 2 - i);
 		break;
 	}
-	return isUnavailable;
+	return isAvailable;
 }

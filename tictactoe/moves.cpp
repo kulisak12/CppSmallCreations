@@ -5,7 +5,7 @@
 extern tictactoe board;
 
 bool computerPlays() { // return 1 = end of the game
-					   // check if player won
+	// check if player won
 	if (board.searchForStreak('x', 3) > 0) {
 		std::cout << "You won! Congrats!\n";
 		return 1;
@@ -33,7 +33,7 @@ bool getInput() {
 		std::cerr << "Please put in a number between 0 and 8\n";
 		return 1; // invoke a new input
 	}
-	if (board.playAtField('x', fieldPlayed / 3, fieldPlayed % 3)) {
+	if (!board.playAtField('x', fieldPlayed / 3, fieldPlayed % 3)) {
 		std::cerr << "Field taken, please choose a free one\n";
 		return 1; // invoke a new input
 	}
