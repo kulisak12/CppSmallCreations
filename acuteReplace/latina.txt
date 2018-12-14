@@ -1,0 +1,160 @@
+absentia ae f;nepřítomnost
+agricola ae m;rolník
+amīca ae f;přítelkyně
+amīcitia ae f;přátelství
+anima ae f;duše
+domina ae f;paní
+fābula ae f;pověst
+fēmina ae f;žena
+forma ae f;tvar
+historia ae f;dějiny
+industria ae f;píle
+īra ae f;hněv
+lingua ae f;jazyk
+lupa ae f;vlčice
+magistra ae f;učitelka
+memoria ae f;paměť
+patria ae f;vlast
+poēta ae m;básník
+puella ae f;dívka
+sapientia ae f;moudrost
+schola ae f;škola
+serva ae f;otrokyně
+silva ae f;les
+terra ae f;země
+via ae f;cesta
+vīlla ae f;statek
+vīta ae f;život
+amō ās āre;milovat
+bene;dobře
+cantō ās āre;zpívat
+castīgō ās āre;kárat
+cūr;proč
+dea ae f;bohyně
+diū;dlouho
+ēducō ās āre;vychovávat
+et;a
+glōria ae f;sláva
+iam;již
+incola ae m;obyvatel
+interrogō ās āre;ptát se
+itaque;proto
+labōrō ās āre;pracovat
+laudō ās āre;chválit
+male;špatně
+narrō ās āre;vypravovat
+parō ās āre;připravovat
+properō ās āre;pospíchat
+saepe;často
+salūtō ās āre;zdravit
+semper;vždy
+spērō ās āre;doufat
+vocō ās āre;vzývat
+ad ak;k
+ante ak;před
+apud ak;u
+inter ak;mezi
+post ak;po
+per ak;skrz
+trāns ak;přes
+contrā ak;proti
+ab abl;od
+cum abl;s
+dē abl;o
+ex abl;z
+prō abl;pro
+sine abl;bez
+ager ī m;pole
+amīcus ī m;přítel
+bellum ī n;válka
+deus ī m;bůh
+discipulus ī m;žák
+dominus ī m;pán
+etiam;také
+exemplum ī n;příklad
+faber ī m;řemeslník
+liber ī m;kniha
+locus ī m;místo
+magister ī m;učitel
+nam;neboť
+nisi;jestliže ne
+officium ī n;povinnost
+oppidum ī n;městečko
+populus ī m;lid
+puer ī m;chlapec
+pugnō ās āre;bojovat
+sed;ale
+servus ī m;otrok
+sī;jestliže
+sigillum ī n;pečeť
+studium ī n;snaha
+verbum ī n;slovo
+vīcus ī m;vesnice
+vir ī m;muž
+aqua ae f;voda
+arma ōrum n;zbraně
+dēleō ēs ēre;ničit
+dēsīderō ās āre;přát si
+exerceō ēs ēre;cvičit
+habeō ēs ēre;mít
+imperō ās āre;rozkazovat
+moneō ēs ēre;napomínat
+moveō ēs ēre;hýbat, dojímat
+Mūsa ae f;Múza
+noceō ēs ēre;škodit
+nōn sōlum, sed etiam;nejen, ale i
+numquam;nikdy
+respondeō ēs ēre;odpovídat
+rīpa ae f;břeh
+sileō ēs ēre;mlčet
+teneō ēs ēre;držet
+teneō memoriā;pamatuji si
+terreō ēr ēre;děsit
+timeō ēs ēre;bát se
+videō ēs ēre;vidět
+albus a um;bílý
+antīquus a um;dávný
+bonus a um;dobrý
+atque;a
+clārus a um;slavný, jasný
+doctus a um;učený
+Graecus a um;řecký
+Graecus ī m;Řek
+industrius a um;pilný
+īnfīnītus a um;nekonečný
+lātus a um;široký
+longus a um;dlouhý
+magnus a um;velký
+malus a um;špatný
+miser a um;nešťastný
+multus a um;mnohý
+niger a um;černý
+novus a um;nový
+parvus a um;malý
+perītus a um;zkušený
+prīvātus a um;soukromý
+pulcher a um;krásný
+Rōmānus a um;římský
+Rōmānus ī m;Říman
+corrigō is ere;opravovat
+crēdō is ere;věřit
+dēfendō is ere;bránit
+discō is ere;učit se
+epistula ae f;dopis
+errō ās āre;bloudit, mýlit se
+gerō is ere;nést
+bellum gerō;vedu válku
+herba ae f;rostlina
+hūmānus a um;lidský
+legō is ere;číst
+līberī ōrum m;děti
+mittō is ere;posílat
+nōnnūllī ae a;někteří
+pactum ī n;smlouva
+perīculum ī n;nebezpečí
+Persa ae m;Peršan
+scrībō is ere;psát
+trahō is ere;táhnout
+tribuō is ere;udělovat
+vērus a um;pravdivý
+vīvō is ere;žít
